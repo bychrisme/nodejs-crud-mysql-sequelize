@@ -1,9 +1,14 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import db from './app/models';
+import * as dotenv from 'dotenv';
+import TutorialRoutes from './app/routes/tutorial.routes';
+
+dotenv.config();
 
 const app = express();
 
-const cors = require("cors");
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -11,7 +16,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-const db = require("./app/models");
 
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
@@ -28,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 // tutorials routes
-require("./app/routes/tutorial.routes")(app);
+app.use("api/tutorials", TutorialRoutes)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
