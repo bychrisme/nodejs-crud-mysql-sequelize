@@ -1,4 +1,4 @@
-const db = require("../models");
+import db from '../models';
 const Tutorial = db.tutorials;
 const Op = db.Sequelize.Op;
 
@@ -36,7 +36,7 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
   Tutorial.findAll({ where: condition })
     .then(data => {

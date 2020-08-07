@@ -17,9 +17,8 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
-});
+db.sequelize.sync();
+
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -32,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 // tutorials routes
-app.use("api/tutorials", TutorialRoutes)
+app.use("/api/tutorials", TutorialRoutes)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

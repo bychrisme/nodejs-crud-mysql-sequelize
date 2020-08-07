@@ -1,6 +1,6 @@
-const dbConfig = require("../config/db.config.js");
+import dbConfig from '../config/db.config.js';
+import Sequelize from 'sequelize';
 
-const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
