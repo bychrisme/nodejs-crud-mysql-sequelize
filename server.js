@@ -3,7 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import db from './app/models';
 import * as dotenv from 'dotenv';
-import TutorialRoutes from './app/routes/tutorial.routes';
+import TutorialRoutes from './app/routes/tutorials.routes';
+import CommentRoutes from './app/routes/comments.routes';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 // tutorials routes
 app.use("/api/tutorials", TutorialRoutes)
+app.use("/api/comments", CommentRoutes)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

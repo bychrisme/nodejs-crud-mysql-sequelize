@@ -1,5 +1,6 @@
 import db from '../models';
 const Tutorial = db.tutorials;
+const Comment = db.comments;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -54,7 +55,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByPk(id)
+  Tutorial.findByPk(id, { include: [{model: Comment, as: "comments"}] })
     .then(data => {
       res.send(data);
     })
