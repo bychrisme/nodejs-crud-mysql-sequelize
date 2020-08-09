@@ -1,6 +1,7 @@
 import db from '../models';
 const Tutorial = db.tutorials;
 const Comment = db.comments;
+const Tag = db.tags;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -39,7 +40,19 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Tutorial.findAll({ where: condition })
+  Tutorial.findAll({ 
+      where: condition,
+      include: [
+        {
+          model: Tag,
+          as: "tags",
+          attributes: ["id", "name"],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    })
     .then(data => {
       res.send(data);
     })
@@ -55,7 +68,22 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByPk(id, { include: [{model: Comment, as: "comments"}] })
+  Tutorial.findByPk(id, 
+    { 
+      include: [
+      {
+        model: Tag,
+        as: "tags",
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: Comment, 
+        as: "comments"
+      }
+    ] })
     .then(data => {
       res.send(data);
     })
