@@ -1,25 +1,11 @@
-// 'use strict';
-// const mysql = require('mysql');
-
-// //local mysql db connection
-// const dbConn = mysql.createConnection({
-//   host     : 'localhost',
-//   user     : 'root',
-//   password : '',
-//   database : 'node_mysql_crud_db',
-//   socketPath: '/var/run/mysqld/mysqld.sock' // for linux or mac
-// });
-// dbConn.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Database Connected!");
-// });
-// module.exports = dbConn;
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
-    DB: "node_mysql_crud_db",
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB_NAME,
     dialect: "mysql",
     pool: {
         max: 5,
@@ -28,6 +14,6 @@ module.exports = {
         idle: 10000
     },
     dialectOptions: {
-        socketPath: "/var/run/mysqld/mysqld.sock"
+        socketPath: process.env.DB_SOCKET_PATH
     }
 };

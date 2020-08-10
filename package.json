@@ -1,5 +1,5 @@
 {
-  "name": "Rest_API_sample",
+  "name": "rest-api-sample",
   "version": "1.0.0",
   "description": "Make a simple CRUD on MySQL database using Sequelize ORM",
   "main": "index.js",
